@@ -1,0 +1,12 @@
+@URL_Shortening_HostAddress = https://localhost:7204
+
+
+
+POST {{URL_Shortening_HostAddress}}/api/shorten/shorten/{**}
+Content-Type: application/json
+
+{
+  //UrlDTO
+}
+
+###
