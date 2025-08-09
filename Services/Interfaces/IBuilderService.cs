@@ -1,10 +1,8 @@
-﻿namespace URL_Shortening.Services
+﻿namespace URL_Shortening.Services.Interfaces
 {
-    public interface IShortUrlService
+    public interface IBuilderService
     {
         string GenerateShortUrl();
         bool CheckShortUrl(string url);
-
-
     }
 }

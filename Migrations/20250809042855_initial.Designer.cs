@@ -12,7 +12,7 @@ using URL_Shortening.Database;
 namespace URL_Shortening.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250808160618_initial")]
+    [Migration("20250809042855_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -36,12 +36,13 @@ namespace URL_Shortening.Migrations
                     b.Property<int>("AccessCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("OriginalUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")

@@ -17,8 +17,9 @@ namespace URL_Shortening.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OriginalUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShortUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OriginalUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShortUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AccessCount = table.Column<int>(type: "int", nullable: false)
                 },

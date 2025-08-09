@@ -1,22 +1,25 @@
-﻿using URL_Shortening.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using URL_Shortening.Database;
 using URL_Shortening.Models;
 
 namespace URL_Shortening.DataAccessLogic
 {
+
     public class Repository : IRepository
     {
         private readonly ApplicationDbContext _context;
+
         public Repository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public bool Create(ShortURL shortURL)
+        public async Task<bool> CreateAsync(ShortURL shortURL)
         {
             try
             {
-                _context.ShortURLs.Add(shortURL);
-                _context.SaveChanges();
+                await _context.ShortURLs.AddAsync(shortURL);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -26,12 +29,16 @@ namespace URL_Shortening.DataAccessLogic
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             try
             {
-                _context.ShortURLs.Remove(Get(id));
-                _context.SaveChanges();
+                var entity = await GetAsync(id);
+                if (entity != null)
+                {
+                    _context.ShortURLs.Remove(entity);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {
@@ -39,31 +46,44 @@ namespace URL_Shortening.DataAccessLogic
             }
         }
 
-        public ShortURL? Get(int Id)
+        public async Task<ShortURL?> GetAsync(int id)
         {
             try
             {
-                return _context.ShortURLs.FirstOrDefault(x => x.Id == Id) ?? null;
+                return await _context.ShortURLs.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
+                return null;
             }
-            return null;
         }
 
-        public void Update(ShortURL shortURL)
+        public async Task UpdateAsync(ShortURL shortURL)
         {
             try
             {
                 _context.ShortURLs.Update(shortURL);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-
         }
+
+        public async Task<ShortURL?> GetByShortUrlAsync(string url)
+        {
+            try
+            {
+                return await _context.ShortURLs.FirstOrDefaultAsync(x => x.ShortUrl == url);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
+        }
+
     }
 }

@@ -4,16 +4,12 @@
     {
 
         public int Id { get; private set; }
-        public string OriginalUrl { get; set; } = "";
-        public string ShortUrl { get; set; } = "";
-        public DateTime CreatedAt { get; }
+        public string? OriginalUrl { get; set; }
+        public string? ShortUrl { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int AccessCount { get; set; }
 
-        public ShortURL()
-        {
-            CreatedAt = DateTime.Now;
-        }
 
     }
 }

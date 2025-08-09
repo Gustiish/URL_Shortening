@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using URL_Shortening.DataAccessLogic;
 using URL_Shortening.Database;
-using URL_Shortening.Services;
+using URL_Shortening.Services.Classes;
+using URL_Shortening.Services.Interfaces;
 
 namespace URL_Shortening
 {
@@ -20,8 +21,9 @@ namespace URL_Shortening
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IRepository, Repository>();
-            builder.Services.AddScoped<IShortUrlService, ShortUrlService>();
-            builder.Services.AddScoped<IUrlBuilder, UrlBuilder>();
+            builder.Services.AddScoped<IDataService, DataService>();
+            builder.Services.AddScoped<IBuilder, Builder>();
+            builder.Services.AddScoped<IBuilderService, BuilderService>();
 
             var app = builder.Build();
 

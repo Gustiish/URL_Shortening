@@ -2,12 +2,13 @@
 
 namespace URL_Shortening.DataAccessLogic
 {
+
     public interface IRepository
     {
-        ShortURL? Get(int Id);
-        bool Create(ShortURL shortURL);
-        void Update(ShortURL shortURL);
-        void Delete(int id);
-
+        Task<ShortURL?> GetAsync(int id);
+        Task<bool> CreateAsync(ShortURL shortURL);
+        Task UpdateAsync(ShortURL shortURL);
+        Task DeleteAsync(int id);
+        Task<ShortURL?> GetByShortUrlAsync(string url);
     }
 }

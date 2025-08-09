@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using URL_Shortening.Database;
+using URL_Shortening.Services.Interfaces;
 
-namespace URL_Shortening.Services
+namespace URL_Shortening.Services.Classes
 {
-    public class ShortUrlService : IShortUrlService
+    public class BuilderService : IBuilderService
     {
         private readonly ApplicationDbContext _context;
-        public ShortUrlService(ApplicationDbContext context)
+        public BuilderService(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -39,5 +40,6 @@ namespace URL_Shortening.Services
 
             return builder.ToString();
         }
+
     }
 }
